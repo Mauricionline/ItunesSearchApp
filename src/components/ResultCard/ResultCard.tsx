@@ -1,6 +1,7 @@
 import React from 'react';
 import { ExternalLink } from 'lucide-react';
 import type { iTunesItem } from '../../types/itunes';
+import noImage from '../../assets/noImage.jpg';
 
 interface ResultCardProps {
     item: iTunesItem;
@@ -17,13 +18,14 @@ const ResultCard: React.FC<ResultCardProps> = ({ item }) => {
     };
 
     const getDefaultImage = () => {
-        return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0zNSAzNUg2NVY2NUgzNVYzNVoiIGZpbGw9IiNEMUQ1REIiLz4KPHBhdGggZD0iTTQ1IDQ1QzQ1IDQ3Ljc2MTQgNDIuNzYxNCA1MCA0MCA1MEM0Ny4yMzg2IDUwIDQ1IDQ3Ljc2MTQgNDUgNDVaIiBmaWxsPSIjOUM5Q0E2Ii8+CjxwYXRoIGQ9Ik0zNSA1NUw0NS4wNzE0IDQ1LjA3MTRMNTE0Mjg2IDUxLjQyODZMNjUgNjVIMzVWNTVaIiBmaWxsPSIjOUM5Q0E2Ii8+Cjwvc3ZnPgo=';
+        return noImage;
     };
 
     const price = formatPrice(item.collectionPrice || item.trackPrice, item.currency);
     const imageUrl = item.artworkUrl100 || item.artworkUrl60 || getDefaultImage();
-    const title = item.collectionName || item.trackName || 'Sin título';
-    const artist = item.artistName || 'Artista desconocido';
+    const title = item.collectionName || item.trackName || 'Without title';
+    const artist = item.artistName || 'No artist';
+    const kind = item.kind || 'Unknown';
 
     return (
         <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
@@ -46,6 +48,9 @@ const ResultCard: React.FC<ResultCardProps> = ({ item }) => {
 
                 <p className="text-gray-600 mb-2 line-clamp-1">
                     {artist}
+                </p>
+                <p className="text-gray-600 mb-2 line-clamp-1">
+                    {kind}
                 </p>
 
                 {item.primaryGenreName && (
