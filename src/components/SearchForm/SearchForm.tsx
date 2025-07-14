@@ -3,7 +3,7 @@ import { Search, Filter, ChevronDown } from 'lucide-react';
 
 const mediaTypes = [
     'all',
-    'music',
+    'song',
     'musicVideo',
     'movie',
     'podcast',
