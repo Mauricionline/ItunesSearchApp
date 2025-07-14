@@ -1,6 +1,6 @@
 # iTunes Search App
 
-A modern React application to search for content on iTunes using the official iTunes Search API.
+React application to search for content on iTunes using the official iTunes Search API.
 
 ## Features
 
@@ -9,7 +9,6 @@ A modern React application to search for content on iTunes using the official iT
 - **Paginated results** with load more functionality
 - **Sorting** results A-Z and Z-A
 - **State management** for loading, error, and empty states
-- Built with **TypeScript** for strong type safety
 
 ## Technologies
 
