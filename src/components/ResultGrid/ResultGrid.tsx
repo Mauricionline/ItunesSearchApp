@@ -77,15 +77,9 @@ const ResultGrid: React.FC<ResultGridProps> = ({
 				</div>
 			)}
 
-			{loading && (
-				<div className="flex items-center justify-center py-12">
-					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-				</div>
-			)}
-
-			{!loading && sortedResults.length > 0 && (
+			{results.length > 0 && (
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-					{sortedResults.map((item) => (
+					{results.map((item) => (
 						<ResultCard key={item.trackId} item={item} />
 					))}
 				</div>
@@ -106,11 +100,19 @@ const ResultGrid: React.FC<ResultGridProps> = ({
 			{canLoadMore && (
 				<div className="flex justify-center mt-8">
 					<button
+						type="button"
 						onClick={onLoadMore}
 						disabled={loading}
-						className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+						className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
 					>
-						Show more results
+						{loading ? (
+							<>
+								<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+								Loading...
+							</>
+						) : (
+							'Show more results'
+						)}
 					</button>
 				</div>
 			)}

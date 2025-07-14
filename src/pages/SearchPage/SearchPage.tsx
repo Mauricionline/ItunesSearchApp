@@ -18,7 +18,6 @@ const SearchPage = () => {
     const handleSearch = async (searchTerm: string, mediaType: string, page: number = 1) => {
         setLoading(true);
         setError(null);
-        setCurrentPage(page);
 
         if (page === 1) {
             setResults([]);
@@ -41,8 +40,9 @@ const SearchPage = () => {
             }
 
             setHasSearched(true);
+            setCurrentPage(page);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Error desconocido');
+            setError(err instanceof Error ? err.message : 'Unknown error');
         } finally {
             setLoading(false);
         }
@@ -50,13 +50,31 @@ const SearchPage = () => {
 
     const handleLoadMore = () => {
         if (currentSearch.term) {
-            handleSearch(currentSearch.term, currentSearch.mediaType, currentPage + 1);
+            const nextPage = currentPage + 1;
+            handleSearch(currentSearch.term, currentSearch.mediaType, nextPage);
         }
     };
 
+
     const handleSortChange = (order: 'asc' | 'desc') => {
         setSortOrder(order);
+
+        setResults(prevResults => {
+            const sorted = [...prevResults].sort((a, b) => {
+                const nameA = (a.collectionName || a.trackName || '').toLowerCase();
+                const nameB = (b.collectionName || b.trackName || '').toLowerCase();
+
+                if (order === 'asc') {
+                    return nameA.localeCompare(nameB);
+                } else {
+                    return nameB.localeCompare(nameA);
+                }
+            });
+
+            return sorted;
+        });
     };
+
 
     const canLoadMore = results.length >= limit && results.length % limit === 0;
 
